@@ -4,12 +4,14 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Windows.Forms;
 
 namespace lab7_2
 {
     public partial class Form1 : Form
     {
+        [Serializable]
         class Scanner
         {
             public int ID { get; set; }
@@ -180,7 +182,7 @@ namespace lab7_2
         public void Randomize()
         {
             Random random = new Random();
-            for(int i = 0;  i < data.Rows.Count-1; i++)
+            for (int i = 0; i < data.Rows.Count - 1; i++)
             {
                 if (data.Rows[i].Cells[0].Value == null)
                 {
@@ -258,6 +260,54 @@ namespace lab7_2
         private void button7_Click(object sender, EventArgs e)
         {
             Randomize();
+        }
+        static void SaveScannersToBinaryFile(List<Scanner> scanners)
+        {
+            BinaryFormatter formatter = new BinaryFormatter();
+            using (FileStream fileStream = new FileStream("scanners.bin", FileMode.Create, FileAccess.Write, FileShare.None))
+            {
+                formatter.Serialize(fileStream, scanners);
+            }
+        }
+        private void button5_Click(object sender, EventArgs e)
+        {
+            // очищение массива
+            scanners.Clear();
+            // добавление данных в массив
+            for (int i = 0; i < data.Rows.Count - 1; i++)
+            {
+                if (data.Rows[i].Cells[0].Value != null)
+                {
+                    Scanner _ = new Scanner(Convert.ToInt32(data.Rows[i].Cells[0].Value), Convert.ToDouble(data.Rows[i].Cells[1].Value), data.Rows[i].Cells[2].Value.ToString(), data.Rows[i].Cells[3].Value.ToString());
+                    scanners.Add(_);
+                }
+                else
+                {
+                    break;
+                }
+            }
+            SaveScannersToBinaryFile(scanners);
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            if (!File.Exists("scanners.bin"))
+            {
+                MessageBox.Show("File not found. Please make sure the binary file is in the same directory as the program.");
+                return;
+            }
+            // Read binary file
+            using (Stream stream = File.Open("scanners.bin", FileMode.Open))
+            {
+                BinaryFormatter formatter = new BinaryFormatter();
+                scanners = (List<Scanner>)formatter.Deserialize(stream);
+            }
+
+            data.Rows.Clear();
+            for (int i = 0; i < scanners.Count; i++)
+            {
+                data.Rows.Add(scanners[i].ID.ToString(), scanners[i].Weight.ToString(), scanners[i].Type, scanners[i].Company);
+            }
         }
     }
 }

@@ -1,6 +1,4 @@
 ﻿using System.Runtime.Serialization.Formatters.Binary;
-
-
 start: Console.WriteLine("1. Записать данные\n2. Получить данные");
 int choice = Convert.ToInt32(Console.ReadLine());
 List<Scanner> scanners = new List<Scanner>();
@@ -19,8 +17,8 @@ switch (choice)
             Console.WriteLine("Максимальное разрешение");
             int rezolution = Convert.ToInt32(Console.ReadLine());
             scanners.Add(new Scanner(company, type, rezolution));
-            SaveScannersToBinaryFile(scanners);
         }
+        SaveScannersToBinaryFile(scanners);
         break;
     case 2:
         if (!File.Exists("scanners.bin"))
@@ -47,7 +45,6 @@ switch (choice)
         break;
 }
 goto start;
-
 static void SaveScannersToBinaryFile(List<Scanner> scanners)
 {
     BinaryFormatter formatter = new BinaryFormatter();
@@ -56,7 +53,6 @@ static void SaveScannersToBinaryFile(List<Scanner> scanners)
         formatter.Serialize(fileStream, scanners);
     }
 }
-
 [Serializable]
 class Scanner
 {

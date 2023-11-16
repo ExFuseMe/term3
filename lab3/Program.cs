@@ -4,13 +4,22 @@
 DrumScanner ds = new DrumScanner();
 ds.Scan();
 Console.WriteLine(ds.type);
-Console.WriteLine(ds.weight);
+Console.WriteLine(ds.company);
+Console.WriteLine(ds.max_resolution);
 public class Scanner
 {
+    public string type = "None";
+    public string company = "None";
+    public string max_resolution = "None";
+    public Scanner() { }
+    public Scanner(string type, string company, string max_resolution)
+    {
+        this.type = type;
+        this.company = company;
+        this.max_resolution = max_resolution;
+    }
 
-    public string type;
-    public string company;
-    public string max_resolution;
+
 
     public void GetData()
     {
@@ -26,9 +35,15 @@ public class Scanner
 
 public class DrumScanner: Scanner
 {
-
-    public new string type = "Drum";
-    public new int weight = 30;
+    public DrumScanner() { }
+    public string type = "Drum";
+    public string company = "None";
+    public string max_resolution = "None";
+    public DrumScanner(string company, string max_resolution)
+    { 
+        this.company = company;
+        this.max_resolution = max_resolution;
+    }
     public override void Scan()
     {
         Console.WriteLine("Your document was scanned by drum scanner");
