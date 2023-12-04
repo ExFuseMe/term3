@@ -1,4 +1,6 @@
-﻿class Scanner
+﻿using System.Diagnostics;
+
+class Scanner
 {
     public int ID { get; set; }
     public double Weight { get; set; }
@@ -18,6 +20,7 @@ class MainClass
 {
     static void BubbleSort(List<Scanner> scanners, int column)
     {
+
         for (int i = 0; i < scanners.Count - 1; i++)
         {
             for (int j = 0; j < scanners.Count - 1 - i; j++)
@@ -36,6 +39,7 @@ class MainClass
                 }
             }
         }
+
     }
 
     static void SelectSort(List<Scanner> scanners, int column)
@@ -149,9 +153,10 @@ class MainClass
         Scanner scanner = new Scanner(random.Next(1, 100000), (double)10 / random.NextDouble(), Guid.NewGuid().ToString("N"), Guid.NewGuid().ToString("N"));
         return scanner;
     }
+
     public static void Main(string[] args)
     {
-        List<Scanner> scanners = new List<Scanner>();
+        List<Scanner> original_scanners = new List<Scanner>();
         Console.WriteLine("1.Автоматическое запонение\n2.Ручное");
         string choice = Console.ReadLine();
         Console.WriteLine("Сколько элементов?");
@@ -161,24 +166,24 @@ class MainClass
             case "1":
                 for (int i = 0; i < scanner_count; i++)
                 {
-                    scanners.Add(Randomize());
+                    original_scanners.Add(Randomize());
                 }
                 break;
             case "2":
                 for (int i = 0; i < scanner_count; i++)
                 {
-                    Console.WriteLine($"Введите все параметры: ID, Вес, тип, компанию {i+1}ого сканера");
+                    Console.WriteLine($"Введите все параметры: ID, Вес, тип, компанию {i + 1}ого сканера");
                     Scanner scanner = new Scanner(Convert.ToInt32(Console.ReadLine()), Convert.ToDouble(Console.ReadLine()), Console.ReadLine(), Console.ReadLine());
-                    scanners.Add(scanner);
+                    original_scanners.Add(scanner);
                 }
                 break;
         }
-
-        foreach (Scanner scanner in scanners)
+    Choice1: Console.WriteLine("Оригинальный массив");
+        foreach (Scanner scanner in original_scanners)
         {
             Console.WriteLine($"Id:{scanner.ID}, weight: {scanner.Weight}, type: {scanner.Type}, company: {scanner.Company}");
         }
-    Choice1: Console.WriteLine("Выберите столбец для сортировки");
+        Console.WriteLine("Выберите столбец для сортировки");
         choice = Console.ReadLine();
         int column;
         switch (choice)
@@ -201,7 +206,9 @@ class MainClass
         }
     Choice2: Console.WriteLine("Выберите метод сортировки:\n1.Bubble\n2.Select\n3.Cocktail\n4.Insertion\n5.Shell\n");
         choice = Console.ReadLine();
-
+        List<Scanner> scanners = new List<Scanner>(original_scanners);
+        Stopwatch stopWatch = new Stopwatch();
+        stopWatch.Start();
         switch (choice)
         {
             case "1":
@@ -228,6 +235,8 @@ class MainClass
         {
             Console.WriteLine($"Id:{scanner.ID}, weight: {scanner.Weight}, type: {scanner.Type}, company: {scanner.Company}");
         }
+        stopWatch.Stop();
+        Console.WriteLine(stopWatch.Elapsed.ToString());
         goto Choice1;
     }
 }

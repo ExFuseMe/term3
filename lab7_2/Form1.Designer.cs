@@ -33,11 +33,13 @@
             button3 = new Button();
             button4 = new Button();
             flowLayoutPanel1 = new FlowLayoutPanel();
-            button5 = new Button();
-            button7 = new Button();
+            button8 = new Button();
             sorting_method = new ComboBox();
-            data = new DataGridView();
+            button7 = new Button();
             button6 = new Button();
+            button5 = new Button();
+            data = new DataGridView();
+            button9 = new Button();
             flowLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)data).BeginInit();
             SuspendLayout();
@@ -88,6 +90,8 @@
             // 
             // flowLayoutPanel1
             // 
+            flowLayoutPanel1.Controls.Add(button9);
+            flowLayoutPanel1.Controls.Add(button8);
             flowLayoutPanel1.Controls.Add(sorting_method);
             flowLayoutPanel1.Controls.Add(button7);
             flowLayoutPanel1.Controls.Add(button6);
@@ -97,20 +101,29 @@
             flowLayoutPanel1.Size = new Size(241, 1111);
             flowLayoutPanel1.TabIndex = 4;
             // 
-            // button5
+            // button8
             // 
-            button5.Location = new Point(3, 153);
-            button5.Name = "button5";
-            button5.Size = new Size(242, 46);
-            button5.TabIndex = 10;
-            button5.Text = "Сохранить данные";
-            button5.UseVisualStyleBackColor = true;
-            button5.Click += button5_Click;
+            button8.Location = new Point(3, 55);
+            button8.Name = "button8";
+            button8.Size = new Size(238, 46);
+            button8.TabIndex = 12;
+            button8.Text = "Ориг-ный массив";
+            button8.UseVisualStyleBackColor = true;
+            button8.Click += button8_Click;
+            // 
+            // sorting_method
+            // 
+            sorting_method.FormattingEnabled = true;
+            sorting_method.Items.AddRange(new object[] { "Пузырьковая сортировка", "Сортировка прямым выбором", "Сортировка вставками", "Шейкерная сортировка", "Сортировка Шелла" });
+            sorting_method.Location = new Point(3, 107);
+            sorting_method.Name = "sorting_method";
+            sorting_method.Size = new Size(242, 40);
+            sorting_method.TabIndex = 9;
             // 
             // button7
             // 
             button7.BackColor = Color.White;
-            button7.Location = new Point(3, 49);
+            button7.Location = new Point(3, 153);
             button7.Name = "button7";
             button7.Size = new Size(238, 46);
             button7.TabIndex = 7;
@@ -118,14 +131,25 @@
             button7.UseVisualStyleBackColor = false;
             button7.Click += button7_Click;
             // 
-            // sorting_method
+            // button6
             // 
-            sorting_method.FormattingEnabled = true;
-            sorting_method.Items.AddRange(new object[] { "Пузырьковая сортировка", "Сортировка прямым выбором", "Сортировка вставками", "Шейкерная сортировка", "Сортировка Шелла" });
-            sorting_method.Location = new Point(3, 3);
-            sorting_method.Name = "sorting_method";
-            sorting_method.Size = new Size(242, 40);
-            sorting_method.TabIndex = 9;
+            button6.Location = new Point(3, 205);
+            button6.Name = "button6";
+            button6.Size = new Size(238, 46);
+            button6.TabIndex = 11;
+            button6.Text = "Открыть данные";
+            button6.UseVisualStyleBackColor = true;
+            button6.Click += button6_Click;
+            // 
+            // button5
+            // 
+            button5.Location = new Point(3, 257);
+            button5.Name = "button5";
+            button5.Size = new Size(242, 46);
+            button5.TabIndex = 10;
+            button5.Text = "Сохранить данные";
+            button5.UseVisualStyleBackColor = true;
+            button5.Click += button5_Click;
             // 
             // data
             // 
@@ -139,15 +163,15 @@
             data.Size = new Size(811, 300);
             data.TabIndex = 5;
             // 
-            // button6
+            // button9
             // 
-            button6.Location = new Point(3, 101);
-            button6.Name = "button6";
-            button6.Size = new Size(238, 46);
-            button6.TabIndex = 11;
-            button6.Text = "Открыть данные";
-            button6.UseVisualStyleBackColor = true;
-            button6.Click += button6_Click;
+            button9.Location = new Point(3, 3);
+            button9.Name = "button9";
+            button9.Size = new Size(238, 46);
+            button9.TabIndex = 13;
+            button9.Text = "Вернуть оригинал";
+            button9.UseVisualStyleBackColor = true;
+            button9.Click += button9_Click;
             // 
             // Form1
             // 
@@ -179,5 +203,7 @@
         private DataGridView data;
         private Button button5;
         private Button button6;
+        private Button button8;
+        private Button button9;
     }
 }

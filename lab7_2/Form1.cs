@@ -190,26 +190,33 @@ namespace lab7_2
                 }
                 if (data.Rows[i].Cells[1].Value == null)
                 {
-                    data.Rows[i].Cells[1].Value = (10 / random.NextDouble()).ToString();
+                    data.Rows[i].Cells[1].Value = Convert.ToInt32((10 / random.NextDouble())).ToString();
                 }
                 if (data.Rows[i].Cells[2].Value == null)
                 {
-                    data.Rows[i].Cells[2].Value = Guid.NewGuid().ToString("N");
+                    var list = new List<string> { "Xerox", "Acer", "Epson", "Kodak" };
+                    int index = random.Next(list.Count);
+                    data.Rows[i].Cells[2].Value = list[index];
                 }
                 if (data.Rows[i].Cells[3].Value == null)
                 {
-                    data.Rows[i].Cells[3].Value = Guid.NewGuid().ToString("N");
+                    var list = new List<string> { "Drum", "Slide", "Flatbed", "Sheetfeed" };
+                    int index = random.Next(list.Count);
+                    data.Rows[i].Cells[3].Value = list[index];
                 }
             }
         }
 
 
         bool is_sorted = false;
+        List<Scanner> original_scanners = new List<Scanner>();
         List<Scanner> scanners = new List<Scanner>();
         BindingList<Scanner> result = new BindingList<Scanner>();
 
         private void sorting_button_Click(object sender, EventArgs e)
         {
+            Stopwatch stopWatch = new Stopwatch();
+            stopWatch.Start();
             // очищение массива
             scanners.Clear();
             // добавление данных в массив
@@ -255,6 +262,8 @@ namespace lab7_2
             {
                 data.Rows.Add(scanners[i].ID.ToString(), scanners[i].Weight.ToString(), scanners[i].Type, scanners[i].Company);
             }
+            stopWatch.Stop();
+            MessageBox.Show(stopWatch.Elapsed.ToString());
         }
 
         private void button7_Click(object sender, EventArgs e)
@@ -307,6 +316,32 @@ namespace lab7_2
             for (int i = 0; i < scanners.Count; i++)
             {
                 data.Rows.Add(scanners[i].ID.ToString(), scanners[i].Weight.ToString(), scanners[i].Type, scanners[i].Company);
+            }
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            original_scanners.Clear();
+            for (int i = 0; i < data.Rows.Count - 1; i++)
+            {
+                if (data.Rows[i].Cells[0].Value != null)
+                {
+                    Scanner _ = new Scanner(Convert.ToInt32(data.Rows[i].Cells[0].Value), Convert.ToDouble(data.Rows[i].Cells[1].Value), data.Rows[i].Cells[2].Value.ToString(), data.Rows[i].Cells[3].Value.ToString());
+                    original_scanners.Add(_);
+                }
+                else
+                {
+                    break;
+                }
+            }
+        }
+
+        private void button9_Click(object sender, EventArgs e)
+        {
+            data.Rows.Clear();
+            for (int i = 0; i < original_scanners.Count; i++)
+            {
+                data.Rows.Add(original_scanners[i].ID.ToString(), original_scanners[i].Weight.ToString(), original_scanners[i].Type, original_scanners[i].Company);
             }
         }
     }

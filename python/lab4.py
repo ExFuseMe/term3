@@ -1,4 +1,4 @@
-count = int(input())
+count = int(input("Число сканеров "))
 scanners = []
 class Scanner:
     def __init__(self, company, type, rezolution):
